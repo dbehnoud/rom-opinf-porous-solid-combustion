@@ -8,13 +8,13 @@ This repo implements a reduced-order modeling (ROM) and uncertainty quantificati
 - Parametric ROM support (AffineLinearOperator)
 - Custom Euler lifters for specific volume & molar conversion
 - Monte Carlo UQ (Gaussian perturbations)
-- Visualization and L2 error analysis
+
 
 ## Structure
 
 - `src/` - Python modules
 - `README.md` - Overview and instructions
-- `caseBflatUQ/` - Data folder (not included)
+- `data/` - Data folder 
 
 ## Installation
 

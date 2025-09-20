@@ -5,12 +5,10 @@ from src.rom_builder import train_rom
 from src.config import *
 import numpy as np
 import matplotlib.pyplot as plt
-import os
 
 
-folder = os.path.join("data", "p875")
 time = np.linspace(0.005,1,200, endpoint=True)
-snapshots = load_snapshots(folder, STATE_VARIABLES)
+snapshots = load_snapshots()
 transformer = get_combustion_transformer()
 lifter = EulerLifter()
 rom = train_rom(snapshots[:,0:100], time[0:100], transformer, lifter)
