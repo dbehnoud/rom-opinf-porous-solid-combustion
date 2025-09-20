@@ -7,9 +7,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-folder = "caseBflatUQ/p875"  # user must provide data
 time = np.linspace(0.005,0.5,100, endpoint=True)
-Qs = load_snapshots_uq(folder, STATE_VARIABLES)
+Qs = load_snapshots_uq()
 data_eval = Qs[:,0:100]
 data_eval= [x[:,::2] for x in data_eval]
 transformer = get_combustion_transformer()

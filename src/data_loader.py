@@ -2,8 +2,10 @@ import numpy as np
 import pandas as pd
 import os, glob
 
-def load_snapshots(case_folder, columns):
-    csv_files = sorted(glob.glob(os.path.join(case_folder, "*.csv")), 
+def load_snapshots():
+    columns = ["U:0", "U:1", "T", "Ts", "rhophi", "gas", "O2", "H2O",\
+                                "CO2", "CO", "N2", "Ywood",'Ychar']
+    csv_files = sorted(glob.glob(os.path.join("data","p875","*.csv")), 
                        key=lambda s: int(s.split('_')[1].split('.')[0]))
     snapshots = []
     for file in csv_files:
@@ -14,13 +16,13 @@ def load_snapshots(case_folder, columns):
     return np.column_stack(snapshots)
 
 
-def load_snapshots_uq(case_folders, columns):
-# folders = [entry for entry in glob.glob(f"caseBflatUQ/*") if os.path.isdir(entry)]
+def load_snapshots_uq():
+    folders = [entry for entry in glob.glob("data/*") if os.path.isdir(entry)]
 
-# columns_to_concatenate = ["U:0", "U:1", "T", "Ts", "rhophi", "gas", "O2", "H2O",\
-                        #    "CO2", "CO", "N2", "Ywood",'Ychar']
+    columns = ["U:0", "U:1", "T", "Ts", "rhophi", "gas", "O2", "H2O",\
+                                "CO2", "CO", "N2", "Ywood",'Ychar']
     Qs = []
-    for folder in case_folders:
+    for folder in folders:
         csv_files = glob.glob(os.path.join(folder, "*.csv"))
         sorted_files = sorted(csv_files, key=lambda s: int(s.split('_')[1].split('.')[0]))
         df = pd.DataFrame()
