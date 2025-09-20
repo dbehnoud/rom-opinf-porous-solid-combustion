@@ -5,9 +5,10 @@ from src.rom_builder import train_rom
 from src.config import *
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 
-folder = "caseBflatUQ/p875"  # user must provide data
+folder = os.path.join("data", "p875")
 time = np.linspace(0.005,1,200, endpoint=True)
 snapshots = load_snapshots(folder, STATE_VARIABLES)
 transformer = get_combustion_transformer()
