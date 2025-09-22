@@ -32,7 +32,7 @@ def run_monte_carlo(rom_models, params, t_eval, num_samples = 150):
         if (x<=params[0]) & (x>=params[8]):
             # i = find_nearest_index(params, x)
             i = 4
-            q0_ = rom_models[0].basis.compress(transformer.fit_transform(lifter.lift(datanpp[i])))[:,0]
+            q0_ = rom_models[0].basis.compress(transformer.fit_transform(lifter.lift(data_eval[i])))[:,0]
             Q_ROM_ = rom_models[0].model.predict(x, q0_, t_eval, method="BDF", first_step=1e-20, 
                                 rtol=1e-6, atol=1e-8, max_step=1e-4)
             q_rom = rom_models[0].lifter.unlift(rom_models[0].transformer.inverse_transform(
@@ -43,7 +43,7 @@ def run_monte_carlo(rom_models, params, t_eval, num_samples = 150):
         if (x<params[8]) & (x>=params[12]): 
             # i = find_nearest_index(params, x)
             i = 10
-            q0_ = rom_models[1].basis.compress(transformer.fit_transform(EulerLifter().lift(datanpp[i])))[:,0]   
+            q0_ = rom_models[1].basis.compress(transformer.fit_transform(EulerLifter().lift(data_eval[i])))[:,0]   
             Q_ROM_ = rom_models[1].model.predict(x, q0_, t_eval, method="BDF", first_step=1e-20, 
                                 rtol=1e-6, atol=1e-8, max_step=1e-4)
             q_rom = rom_models[1].lifter.unlift(rom_models[1].transformer.inverse_transform(
