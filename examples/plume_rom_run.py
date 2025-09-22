@@ -1,6 +1,6 @@
 from src.data_loader import load_snapshots
-from src.lifters import EulerLifter
-from src.transformers import get_combustion_transformer
+from src.pre_processing import EulerLifter
+from src.pre_processing import get_combustion_transformer
 from src.rom_builder import train_rom
 from src.config import *
 import numpy as np
@@ -20,7 +20,7 @@ Q_ROM = rom.model.predict(q0, t_eval, method="BDF", first_step=1e-20,
                            rtol=1e-6, atol=1e-8, max_step=1e-3)
 q_rom = rom.lifter.unlift(rom.transformer.inverse_transform(rom.basis.decompress(Q_ROM)))
 
-# Plot one variable (e.g., temperature)
+# Plot temperature at mid-interface
 vx_rom, vy_rom, T_rom, Ts_rom, rhop_rom, Y_CH4_rom, Y_O2_rom, Y_H2O_rom, Y_CO2_rom,\
       Y_CO_rom, Y_N2_rom,Y_wood_rom, Y_char_rom = np.split(q_rom,NUM_ROMVARS)
 vx, vy, T, Ts, rhophi, Y_CH4, Y_O2, Y_H2O, Y_CO2, Y_CO, Y_N2,\
