@@ -1,6 +1,6 @@
 from src.data_loader import load_snapshots_uq
-from src.lifters import EulerLifter
-from src.transformers import get_combustion_transformer
+from src.pre_processing import EulerLifter
+from src.pre_processing import get_combustion_transformer
 from src.rom_builder import train_param_rom
 from src.config import *
 import numpy as np
@@ -15,7 +15,7 @@ transformer = get_combustion_transformer()
 lifter = EulerLifter()
 
 
-#parameters
+#define parameters
 porosity = np.array([0.825, 0.828, 0.831, 0.834, 0.837, 0.840, 0.843, \
                      0.846, 0.85, 0.856, 0.862, 0.868, 0.875])
 dp = 0.0025/20
@@ -80,22 +80,25 @@ train_param_rom(data_eval, [training_parameters[x] for x in [8,12]], \
 results = run_monte_carlo(rom_models, training_parameters, time)
 
 
-# plot resutls
+# plot results for a point at grid with index 1367 (mid-interface)
 
 split_results = [tuple(np.split(q_rom, NUM_STATES)) for q_rom in results]
 
-vx_romm = []; vy_romm= []; T_romm=[]; Ts_romm=[]; rho_romm=[]; Y_CH4_romm=[]; Y_O2_romm=[]
-Y_H2O_romm=[]; Y_CO2_romm=[]; Y_CO_romm=[]; Y_N2_romm=[]; Y_wood_romm=[]
+# vx_romm = []; vy_romm= []; T_romm=[]; Ts_romm=[]; rho_romm=[]; Y_CH4_romm=[]; Y_O2_romm=[]
+# Y_H2O_romm=[]; Y_CO2_romm=[]; Y_CO_romm=[]; Y_N2_romm=[]; Y_wood_romm=[]
 
 
-for i,x in enumerate(samples):
-    vx, vy, T, Ts, rho, Y_CH4, Y_O2, \
-    Y_H2O, Y_CO2, Y_CO, Y_N2, Y_wood = split_results[i] 
+# for split in split_results:
+#     vx, vy, T, Ts, rho, Y_CH4, Y_O2, \
+#     Y_H2O, Y_CO2, Y_CO, Y_N2, Y_wood = split 
 
-    vx_romm.append(vx); vy_romm.append(vy); T_romm.append(T); Ts_romm.append(Ts)
-    rho_romm.append(rho); Y_CH4_romm.append(Y_CH4); Y_CO_romm.append(Y_CO) 
-    Y_CO2_romm.append(Y_CO2); Y_O2_romm.append(Y_O2); Y_H2O_romm.append(Y_H2O) 
-    Y_N2_romm.append(Y_N2);  Y_wood_romm.append(Y_wood)
+#     vx_romm.append(vx); vy_romm.append(vy); T_romm.append(T); Ts_romm.append(Ts)
+#     rho_romm.append(rho); Y_CH4_romm.append(Y_CH4); Y_CO_romm.append(Y_CO) 
+#     Y_CO2_romm.append(Y_CO2); Y_O2_romm.append(Y_O2); Y_H2O_romm.append(Y_H2O) 
+#     Y_N2_romm.append(Y_N2);  Y_wood_romm.append(Y_wood)
+
+vy_romm, T_romm, Ts_romm, rho_romm, Y_CH4_romm, Y_O2_romm, \
+Y_H2O_romm, Y_CO2_romm, Y_CO_romm, Y_N2_romm, Y_wood_romm = map(list, zip(*split_results))
 
 T_rom1 = np.stack(T_romm, axis=0)
 mean_result = np.mean(T_rom1, axis=0)
