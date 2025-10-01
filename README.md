@@ -1,4 +1,4 @@
-# 🔥 ROM-UQ-Porous_Solid-Combustion
+# ROM-UQ-Porous_Solid-Combustion
 
 This repo implements a reduced-order modeling (ROM) and uncertainty quantification (UQ) framework for reactive multi-species flows using Operator Inference. This project builds on concepts from [rom-operator-inference-Python3](https://github.com/Willcox-Research-Group/rom-operator-inference-Python3), a library for operator inference-based model reduction.
 
