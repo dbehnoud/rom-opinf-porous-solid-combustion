@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 
 
 time = np.linspace(0.005,0.5,100, endpoint=True)
+# Download the snapshot data folders and organize as data/[folder_i]
 Qs = load_snapshots_uq()
 data_eval = Qs[:,0:100]
 data_eval= [x[:,::2] for x in data_eval]

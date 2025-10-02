@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 
 
 time = np.linspace(0.005,1,200, endpoint=True)
+# Download the snapshot data folders and organize as data/[folder]
 snapshots = load_snapshots()
 transformer = get_combustion_transformer()
 lifter = EulerLifter()
